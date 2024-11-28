@@ -1,0 +1,52 @@
+
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+bool isSquareFree(int n) {
+    if (n == 1) return false; 
+    
+    
+    for (int i = 2; i * i <= n; ++i) {
+        if (n % (i * i) == 0) {
+            return false; 
+        }
+    }
+    return true;
+}
+
+
+int countSquareFreeDivisors(int n) {
+    int count = 0;
+    
+    
+    for (int i = 1; i <= sqrt(n); ++i) {
+        if (n % i == 0) {
+            
+            if (isSquareFree(i)) {
+                count++; 
+            }
+            
+            if (i != n / i) {
+                if (isSquareFree(n / i)) {
+                    count++; 
+                }
+            }
+        }
+    }
+    
+    return count;
+}
+
+int main() {
+    int n;
+    cout << "Enter a number: ";
+    cin >> n;
+    
+    int result = countSquareFreeDivisors(n);
+    
+    
+    cout << "Number of square-free divisors: " << result << endl;
+    
+    return 0;
+}
